@@ -14,11 +14,4 @@ public class UserServiceApplication {
 		System.out.println("running UserServiceApplication");
 	}
 
-//	@Bean
-//	CommandLineRunner generateAdminPassword(PasswordEncoder encoder) {
-//		return args -> {
-//			System.out.println("BCrypt password = " + encoder.encode("Admin@123"));
-//		};
-//	}
-
 }
