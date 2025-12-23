@@ -1,5 +1,5 @@
 package com.pharma.inventory_service.product.controller;
-import com.pharma.inventory_service.common.Status;
+import com.pharma.inventory_service.product.entity.ProductStatus;
 import com.pharma.inventory_service.response.ApiResponse;
 import com.pharma.inventory_service.product.dto.*;
 import com.pharma.inventory_service.product.service.ProductService;
@@ -36,12 +36,13 @@ public class ProductController {
         return new ApiResponse<>(true, "Product updated", productService.updateProduct(id, request));
     }
 
-    @PatchMapping("/{id}/status")
-    public ApiResponse<Void> changeStatus(
+    @PatchMapping("/{id}/status/{status}")
+    public ApiResponse<ProductResponse> changeStatus(
             @PathVariable Long id,
-            @RequestParam Status status
+            @PathVariable ProductStatus status
     ) {
         productService.changeStatus(id, status);
-        return new ApiResponse<>(true, "Status updated", null);
+        ProductResponse updatedProduct = productService.getById(id);
+        return new ApiResponse<>(true, "Status updated", updatedProduct);
     }
 }

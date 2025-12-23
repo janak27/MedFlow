@@ -1,6 +1,4 @@
 package com.pharma.inventory_service.warehouse.dto;
-
-import com.pharma.inventory_service.common.Status;
 import com.pharma.inventory_service.warehouse.entity.WarehouseStatus;
 import lombok.*;
 

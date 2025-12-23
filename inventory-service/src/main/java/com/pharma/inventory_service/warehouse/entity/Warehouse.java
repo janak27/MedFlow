@@ -1,8 +1,6 @@
 package com.pharma.inventory_service.warehouse.entity;
 import jakarta.persistence.*;
 import lombok.*;
-import com.pharma.inventory_service.common.Status;
-
 import java.time.LocalDateTime;
 
 @Entity

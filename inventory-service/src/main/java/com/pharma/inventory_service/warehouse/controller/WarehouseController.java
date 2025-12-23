@@ -71,14 +71,13 @@ public class WarehouseController {
         );
     }
 
-    @PatchMapping("/{id}/status")
-    public ApiResponse<WarehouseResponse> changeWarehouseStatus(
+    @PatchMapping("/{id}/status/{status}")
+    public ApiResponse<WarehouseResponse> changeStatus(
             @PathVariable Long id,
-            @RequestParam WarehouseStatus status) {
-
-        return ApiResponse.success(
-                "Warehouse status updated",
-                warehouseService.changeWarehouseStatus(id, status)
-        );
+            @PathVariable WarehouseStatus status
+    ) {
+        warehouseService.changeWarehouseStatus(id, status);
+        WarehouseResponse updatedWarehouse = warehouseService.getWarehouseById(id);
+        return ApiResponse.success("Warehouse status updated", updatedWarehouse);
     }
 }

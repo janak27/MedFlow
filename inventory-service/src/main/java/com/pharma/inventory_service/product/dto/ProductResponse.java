@@ -1,7 +1,7 @@
 package com.pharma.inventory_service.product.dto;
 
-import com.pharma.inventory_service.common.Status;
 import com.pharma.inventory_service.common.UnitOfMeasure;
+import com.pharma.inventory_service.product.entity.ProductStatus;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,6 +17,6 @@ public class ProductResponse {
     private UnitOfMeasure unitOfMeasure;
     private BigDecimal costPrice;
     private BigDecimal sellingPrice;
-    private Status status;
+    private ProductStatus status;
     private String description;
 }

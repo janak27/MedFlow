@@ -1,6 +1,4 @@
 package com.pharma.inventory_service.warehouse.service;
-
-import com.pharma.inventory_service.common.Status;
 import com.pharma.inventory_service.warehouse.dto.CreateWarehouseRequest;
 import com.pharma.inventory_service.warehouse.dto.UpdateWarehouseRequest;
 import com.pharma.inventory_service.warehouse.dto.WarehouseResponse;

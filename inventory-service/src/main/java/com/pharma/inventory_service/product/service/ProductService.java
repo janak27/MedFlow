@@ -1,10 +1,10 @@
 package com.pharma.inventory_service.product.service;
 
-import com.pharma.inventory_service.common.Status;
 import com.pharma.inventory_service.exception.BadRequestException;
 import com.pharma.inventory_service.exception.ResourceNotFoundException;
 import com.pharma.inventory_service.product.dto.*;
         import com.pharma.inventory_service.product.entity.Product;
+import com.pharma.inventory_service.product.entity.ProductStatus;
 import com.pharma.inventory_service.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class ProductService {
                 .costPrice(request.getCostPrice())
                 .sellingPrice(request.getSellingPrice())
                 .description(request.getDescription())
-                .status(Status.ACTIVE)
+                .status(ProductStatus.ACTIVE)
                 .build();
 
         return toResponse(productRepository.save(product));
@@ -67,7 +67,7 @@ public class ProductService {
         return toResponse(productRepository.save(product));
     }
 
-    public void changeStatus(Long id, Status status) {
+    public void changeStatus(Long id, ProductStatus status) {
         Product product = findProduct(id);
         product.setStatus(status);
         productRepository.save(product);

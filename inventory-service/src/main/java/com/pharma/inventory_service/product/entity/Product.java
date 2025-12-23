@@ -1,6 +1,5 @@
 package com.pharma.inventory_service.product.entity;
 
-import com.pharma.inventory_service.common.Status;
 import com.pharma.inventory_service.common.UnitOfMeasure;
 import jakarta.persistence.*;
 import lombok.*;
@@ -46,7 +45,7 @@ public class Product {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status = Status.ACTIVE;
+    private ProductStatus status = ProductStatus.ACTIVE;
 
     @Column(length = 500)
     private String description;
