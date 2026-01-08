@@ -53,4 +53,14 @@ public interface InventoryBatchRepository extends JpaRepository<InventoryBatch, 
         WHERE ib.warehouse.id = :warehouseId
     """)
     List<InventoryBatch> findByWarehouseIdWithDetails(@Param("warehouseId") Long warehouseId);
+
+    @Query("""
+    SELECT b FROM InventoryBatch b
+    WHERE b.product.id = :productId
+      AND b.quantityAvailable > 0
+      AND b.status = 'ACTIVE'
+    ORDER BY b.expiryDate ASC
+""")
+    List<InventoryBatch> findAvailableBatchesByProductId(Long productId);
+
 }

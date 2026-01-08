@@ -79,4 +79,19 @@ public class InventoryBatch {
             status = InventoryStatus.ACTIVE;
         }
     }
+
+    public void reserve(int quantity) {
+
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be positive");
+        }
+
+        if (quantity > this.quantityAvailable) {
+            throw new IllegalStateException("Insufficient stock in batch");
+        }
+
+        this.quantityAvailable -= quantity;
+        this.quantityReserved += quantity;
+    }
+
 }

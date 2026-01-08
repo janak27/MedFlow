@@ -2,6 +2,8 @@ package com.pharma.inventory_service.inventory.controller;
 
 import com.pharma.inventory_service.inventory.dto.CreateInventoryBatchRequest;
 import com.pharma.inventory_service.inventory.dto.InventoryBatchResponse;
+import com.pharma.inventory_service.inventory.dto.InventoryReservationRequest;
+import com.pharma.inventory_service.inventory.dto.InventoryReservationResponse;
 import com.pharma.inventory_service.inventory.entity.InventoryBatch;
 import com.pharma.inventory_service.inventory.service.InventoryService;
 import com.pharma.inventory_service.response.ApiResponse;
@@ -83,6 +85,15 @@ public class InventoryController {
                 toResponse(batch)
         );
     }
+
+    @PostMapping("/reserve")
+    public InventoryReservationResponse reserveInventory(
+            @Valid @RequestBody InventoryReservationRequest request) {
+
+        return inventoryService.reserveStock(request);
+    }
+
+
 
     // ---- Manual mapper (intentional & safe) ----
     private InventoryBatchResponse toResponse(InventoryBatch batch) {

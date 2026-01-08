@@ -2,6 +2,9 @@ package com.pharma.inventory_service.inventory.service.impl;
 
 import com.pharma.inventory_service.exception.BadRequestException;
 import com.pharma.inventory_service.exception.ResourceNotFoundException;
+import com.pharma.inventory_service.inventory.dto.InventoryItemRequest;
+import com.pharma.inventory_service.inventory.dto.InventoryReservationRequest;
+import com.pharma.inventory_service.inventory.dto.InventoryReservationResponse;
 import com.pharma.inventory_service.inventory.entity.InventoryBatch;
 import com.pharma.inventory_service.inventory.entity.InventoryStatus;
 import com.pharma.inventory_service.inventory.repository.InventoryBatchRepository;
@@ -95,4 +98,42 @@ public class InventoryServiceImpl implements InventoryService {
     public List<InventoryBatch> getInventoryByWarehouse(Long warehouseId) {
         return inventoryBatchRepository.findByWarehouseIdWithDetails(warehouseId);
     }
+
+    @Transactional
+    public InventoryReservationResponse reserveStock(
+            InventoryReservationRequest request) {
+
+        for (InventoryItemRequest item : request.getItems()) {
+
+            int remaining = item.getQuantity();
+
+            List<InventoryBatch> batches =
+                    inventoryBatchRepository
+                            .findAvailableBatchesByProductId(item.getProductId());
+
+            for (InventoryBatch batch : batches) {
+                if (remaining <= 0) break;
+
+                int available = batch.getQuantityAvailable();
+                if (available <= 0) continue;
+
+                int toReserve = Math.min(available, remaining);
+                batch.reserve(toReserve);
+                remaining -= toReserve;
+            }
+
+            if (remaining > 0) {
+                return new InventoryReservationResponse(
+                        false,
+                        "INSUFFICIENT_STOCK for productId=" + item.getProductId()
+                );
+            }
+        }
+
+        return new InventoryReservationResponse(true, "RESERVED");
+    }
+
+
+
+
 }
